@@ -1,3 +1,8 @@
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -20,41 +25,68 @@ public class SalaryCalculator
 	public static void main(String[] args) 
 	{
 		JFrame myFrame = new JFrame();
-		myFrame.setBounds(300,300, 400, 400);
+		myFrame.setBounds(400, 400, 600, 300);
 		myFrame.setLayout(null);
 		
 		//Hourly Rate Label
 		JLabel rate = new JLabel("Hourly Rate: ");
-		rate.setBounds(50, 50 , 100, 30);
+		rate.setBounds(40, 30, 250, 30);
 		myFrame.add(rate);
 		
 		//Hourly Rate JTextField
 		JTextField userRate = new JTextField();
-		userRate.setBounds(200, 50, 100, 30);
+		userRate.setBounds(125, 30, 250, 30);
 		myFrame.add(userRate);
 		
 		
 		//Hours Per Week Label
 		JLabel week = new JLabel("Hours/Week: ");
-		rate.setBounds(50, 100, 100, 30);
+		week.setBounds(40, 90, 250, 30);
 		myFrame.add(week);
 		
 		
 		//Hours Per Week JTextField
 		JTextField userHours = new JTextField();
-		userHours.setBounds(200, 100, 100, 30);
+		userHours.setBounds(125,90, 250, 30);
 		myFrame.add(userHours);
 		
 		
 		//FullTime JCheckBox
+		JCheckBox check = new JCheckBox("Full Time");
+		check.setBounds(40, 140, 100, 15);
+		myFrame.add(check);
+		
+		//empty label
+		JLabel display  = new  JLabel();
+		display.setBounds(275, 160, 500, 30);
+		myFrame.add(display);
 		
 		//command Button "calculate"
+		JButton calculate = new JButton("Calculate");
+		calculate.setBounds(40, 165, 200, 30);
+		calculate.addActionListener(new ActionListener()
+				{
+					public void actionPerformed(ActionEvent e)
+					{
+						if(check.isSelected())
+						{
+							double rate = Double.parseDouble(userRate.getText());
+							double sal = rate * 40 * 52;
+							display.setText("Annual Salary: $ " + sal);
+							
+						}
+						else //not selected CheckBox
+						{
+							double hours = Double.parseDouble(userHours.getText());
+							double rate = Double.parseDouble(userRate.getText());
+							double sal = rate * hours * 52;
+							display.setText("Annual Salary: $ " + sal);
+						
+						}	
+					}
+				});
+		myFrame.add(calculate);
 		
-		//JLabel annSal = new JLabel("Annual Salary: $ ");
-
-		
-		
-
 		
 		myFrame.setVisible(true);
 		myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
